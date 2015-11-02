@@ -10,7 +10,6 @@
 	include "inc/inc_doctype.php";
 	include "inc/inc_head.php";
 	include "inc/inc_common.php";
-	include "inc/soap.php";
 ?>
 <body>
 <div class="container-fluid">
