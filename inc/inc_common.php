@@ -2,11 +2,53 @@
 <?php
 	include "secret.php";	
 
-	function iif($condion, $true, $false ) {
+function iif($condion, $true, $false ) {
     return ($condition ? $true : $false);
 }
  
+function daj_freshFM()
+{
+	global $uid;
+	global $pwd;
+	$ret="";
+	$strSQL="";
+	$cn = odbc_connect($_SESSION['cn'],$uid,$pwd) or die('nie je mozne sa pripojit k DB');
+	$strSQL="select DF_MyLinks_Data.FreshFM_getLatestsSongs(5) as pFM";
+	if (($rs = odbc_exec($cn, $strSQL)))
+	{
+		if(($sc=odbc_fetch_row($rs)))
+	    {
+			$ret=odbc_result($rs,"pFM");
+		}
+	}
+	odbc_close($cn);
+    return $ret;
+}
 
+function kresliFreshFM()
+{
+	$rret='';
+	$i=0;
+	$ii=0;
+	$ret=daj_freshFM();
+	if($ret!="")
+	{
+		//echo "<code>".$ret."</code>";
+		/*
+		$rret=json_decode("[".$ret."]");
+		$i=sizeOf($rret);
+		echo $i;
+		while($i>0)
+		{
+			echo "<p>".$rret[$ii]."</p>";
+			$ii=$ii+1;
+			$i=$i-1;
+		}
+		*/
+	}
+	return;
+} 
+ 
 function random_color()
 {
     mt_srand((double)microtime()*1000000);
