@@ -1,7 +1,8 @@
 
 <?php
-	
-function iif($condion, $true, $false ) {
+	include "secret.php";	
+
+	function iif($condion, $true, $false ) {
     return ($condition ? $true : $false);
 }
  
@@ -37,8 +38,10 @@ function urobSkupinu($id,$nazov,$pinned,$cntLinks)
 
 function dajPrislovie()
 {
+	global $uid;
+	global $pwd;
 	$ret="";
-	$cn = odbc_connect($_SESSION['cn'],'myLinks','myLinks') or die('nie je mozne sa pripojit k DB');
+	$cn = odbc_connect($_SESSION['cn'],$uid,$pwd) or die('nie je mozne sa pripojit k DB');
 	$strSQL="select CONVERT(TEXT(4000),DF_Private_Data.PP_dajPrislovie()) as pp";
 	if (($rs = odbc_exec($cn, $strSQL)))
 	{
